@@ -106,6 +106,16 @@ ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" setup.py in
       COMMAND ${CMAKE_COMMAND} ${_common_patch_args}
          -DPATCH:FILEPATH=${CMAKE_CURRENT_LIST_DIR}/numpy-03-core-getlimits-ignore-warnings.patch
         -P ${Slicer_SOURCE_DIR}/CMake/SlicerPatch.cmake
+      #
+      # Disable check for Python 3 when using flang
+      COMMAND ${CMAKE_COMMAND} ${_common_patch_args}
+         -DPATCH:FILEPATH=${CMAKE_CURRENT_LIST_DIR}/numpy-04-allow-flang-python2.patch
+         -P ${Slicer_SOURCE_DIR}/CMake/SlicerPatch.cmake
+      #
+      # Remove /Og option from /Ox MSVC optimization flag due to crash when building SciPy
+      COMMAND ${CMAKE_COMMAND} ${_common_patch_args}
+         -DPATCH:FILEPATH=${CMAKE_CURRENT_LIST_DIR}/numpy-05-fix-msvc-flags.patch
+         -P ${Slicer_SOURCE_DIR}/CMake/SlicerPatch.cmake
     CONFIGURE_COMMAND ${CMAKE_COMMAND} -P ${_configure_script}
     BUILD_COMMAND ${CMAKE_COMMAND} -P ${_build_script}
     INSTALL_COMMAND ${CMAKE_COMMAND} -P ${_install_script}

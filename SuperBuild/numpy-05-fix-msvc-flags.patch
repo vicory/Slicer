@@ -1,0 +1,16 @@
+--- numpy-1.15.1/numpy/distutils/msvccompiler.py
++++ NUMPY/numpy/distutils/msvccompiler.py
+@@ -53,6 +53,10 @@ class MSVCCompiler(_MSVCCompiler):
+         os.environ['lib'] = _merge(environ_lib, os.environ['lib'])
+         os.environ['include'] = _merge(environ_include, os.environ['include'])
+
++        if '/Ox' in self.compile_options:
++            self.compile_options.remove('/Ox')
++            self.compile_options.append('/Oityb2') #equivalent to /Ox except no /Og
++
+         # msvc9 building for 32 bits requires SSE2 to work around a
+         # compiler bug.
+         if platform_bits == 32:
+
+
+

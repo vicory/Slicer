@@ -1,0 +1,21 @@
+--- numpy-1.15.1/numpy/distutils/fcompiler/pg.py
++++ NUMPY/numpy/distutils/fcompiler/pg.py
+@@ -61,7 +61,7 @@ class PGroupFCompiler(FCompiler):
+         return '-R"%s"' % dir
+ 
+ 
+-if sys.version_info >= (3, 5):
++if sys.version_info >= (2, 7):
+     import subprocess
+     import shlex
+     import functools
+@@ -92,7 +92,7 @@ if sys.version_info >= (3, 5):
+             opt.extend(['flang', 'flangrti', 'ompstub'])
+             return opt
+
+-        @functools.lru_cache(maxsize=128)
++        # @functools.lru_cache(maxsize=128)
+         def get_library_dirs(self):
+             """List of compiler library directories."""
+             opt = FCompiler.get_library_dirs(self)
+
