@@ -71,7 +71,7 @@ set(${proj}_WORKING_DIR \"${EP_SOURCE_DIR}\")
 ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" setup.py install)
 ")
 
-  set(_version "1.13.1")
+  set(_version "1.15.1")
 
   if(CMAKE_CONFIGURATION_TYPES)
     set(_download_stamp "${Slicer_BINARY_DIR}/${proj}-prefix/src/${proj}-stamp/${CMAKE_CFG_INTDIR}/${proj}-download")
@@ -88,18 +88,12 @@ ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" setup.py in
   #------------------------------------------------------------------------------
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    URL "https://pypi.python.org/packages/c0/3a/40967d9f5675fbb097ffec170f59c2ba19fc96373e73ad47c2cae9a30aed/numpy-${_version}.zip"
-    URL_MD5 "2c3c0f4edf720c3a7b525dacc825b9ae"
+    URL "https://files.pythonhosted.org/packages/65/ab/4dfcc20234fae12ee40c714b98077d6e3a10652496bd1488fa4828529b22/numpy-${_version}.zip"
+    URL_HASH SHA256=7b9e37f194f8bcdca8e9e6af92e2cbad79e360542effc2dd6b98d63955d8d8a3
     DOWNLOAD_DIR ${CMAKE_BINARY_DIR}
     SOURCE_DIR ${EP_SOURCE_DIR}
     BUILD_IN_SOURCE 1
     PATCH_COMMAND
-      #
-      # Fix NUMPY config so it works with clang (originally added in r21445
-      # Problem is bogus inclusion of '-faltivec' on OS X Intel problem was bad platform test.
-      ${CMAKE_COMMAND} ${_common_patch_args}
-        -DPATCH:FILEPATH=${CMAKE_CURRENT_LIST_DIR}/numpy-01-system_info-fix-clang.patch
-        -P ${Slicer_SOURCE_DIR}/CMake/SlicerPatch.cmake
       #
       # To allow building without a Fortran compiler, effectively back out this change:
       # https://github.com/numpy/numpy/commit/4a3fd1f40ef59b872341088a2e97712c671ea4ca
