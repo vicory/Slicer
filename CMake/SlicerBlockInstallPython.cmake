@@ -43,6 +43,7 @@ To create a Slicer package including python libraries, you can *NOT* provide you
     REGEX "plat[-].*" EXCLUDE
     REGEX "/test/" EXCLUDE
     REGEX "wsgiref*" EXCLUDE
+    REGEX "site-packages/sklearn/datasets/tests/" EXCLUDE
     ${extra_exclude_pattern}
     )
   slicerStripInstalledLibrary(
