@@ -159,7 +159,7 @@ if(Slicer_USE_PYTHONQT)
 endif()
 
 if(Slicer_USE_NUMPY)
-  list(APPEND Slicer_DEPENDENCIES NUMPY)
+  list(APPEND Slicer_DEPENDENCIES python-numpy)
 endif()
 
 if(Slicer_USE_PYTHONQT_WITH_TCL AND UNIX)
